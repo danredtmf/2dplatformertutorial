@@ -27,6 +27,7 @@ tile_set = ExtResource("2_xqf34")
 position = Vector2(64, 512)
 
 [node name="WorldCamera" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_cfocl")]
+position = Vector2(64, 512)
 limit_bottom = 650
 limit_smoothed = true
 editor_draw_limits = true

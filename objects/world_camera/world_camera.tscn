@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://objects/world_camera/world_camera.gd" id="1_cnrg1"]
 
 [node name="WorldCamera" type="Camera2D"]
-position = Vector2(64, 512)
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("1_cnrg1")
