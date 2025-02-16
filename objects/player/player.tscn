@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfnh645o880bx"]
+[gd_scene load_steps=12 format=3 uid="uid://dfnh645o880bx"]
 
 [ext_resource type="Script" path="res://objects/player/player.gd" id="1_1y8hs"]
 [ext_resource type="Texture2D" uid="uid://c7yjs8hu3t5kl" path="res://resources/sprites/player-sheet.png" id="1_25xjm"]
+[ext_resource type="PackedScene" uid="uid://b8xyueubwrof3" path="res://objects/player/detect_area/player_detect_area.tscn" id="3_vu3ea"]
+[ext_resource type="PackedScene" uid="uid://cicjqfp6nj26l" path="res://objects/interactive_ui/interactive_ui.tscn" id="4_lpvwc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dt1yw"]
 atlas = ExtResource("1_25xjm")
@@ -68,3 +70,8 @@ animation = &"move"
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_flqhv")
+
+[node name="PlayerDetectArea" parent="." instance=ExtResource("3_vu3ea")]
+size = Vector2(24, 64)
+
+[node name="InteractiveUI" parent="." instance=ExtResource("4_lpvwc")]

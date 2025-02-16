@@ -10,6 +10,10 @@ var current_state: State = State.Idle
 
 @onready var _animation: AnimatedSprite2D = $Animation
 
+func _ready() -> void:
+	add_to_group("Player")
+	_set_state(current_state)
+
 func _set_state(value: State) -> void:
 	current_state = value
 	_check_state()
