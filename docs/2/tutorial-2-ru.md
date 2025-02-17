@@ -163,7 +163,7 @@ func _on_area_exited(area: Area2D) -> void:
 
 ## 5. Создание интерфейса взаимодействия с интерактивным объектом
 
-Создадим объект, который будет показывать игроку с каким объектом в игровом мире взаимодействует игрок. Создаём новую сцену типа `PanelContainer` и называем его `InteractiveUI`. Выставим у объекта предустановку якорей `Center` (рис. 5-1). Убедимся, что объект выделен в редакторе и с нажатой клавишей `Shift` поднимаем узел с помощью клавиши `⬆️` (стрелка вверх). То же самое мы могли сделать в свойстве `Position` оси `y` во вкладке `Transform` во вкладке `Layout` (вкладка `Layout` ➡️ вкладка `Transform` ➡️ свойство `Position` ось `y`). Учитываем, что верхняя оси `y` отрицательна. Для примера окончательное значение свойства `Position` было выставлено в `(x: 540, y: 240)`.
+Создадим объект, который будет показывать игроку с каким объектом в игровом мире взаимодействует игрок. Создаём новую сцену типа `PanelContainer` и называем его `InteractiveUI`. Выставим у объекта предустановку якорей `Center` (рис. 5-1). Выставляем минимальный размер узла в свойстве `Custom Minimum Size` во вкладке `Layout` на `(x: 200, y: 64)`. Убедимся, что объект выделен в редакторе и с нажатой клавишей `Shift` поднимаем узел с помощью клавиши `⬆️` (стрелка вверх). То же самое мы могли сделать в свойстве `Position` оси `y` во вкладке `Transform` во вкладке `Layout` (вкладка `Layout` ➡️ вкладка `Transform` ➡️ свойство `Position` ось `y`). Учитываем, что верхняя оси `y` отрицательна. Для примера окончательное значение свойства `Position` было выставлено в `(x: 540, y: 240)`.
 
 <div style="text-align: center;"><img src="./images/5-1.png" alt="Рисунок 5-1 – Предустановка якорей у `InteractiveUI`"></div>
 <p align="center">Рисунок 5-1 – Предустановка якорей у `InteractiveUI`</p>
@@ -222,4 +222,89 @@ func _on_interactive_ui_hide() -> void:
 
 ## 6. Создание портала
 
-Текст
+Создадим объект, который будет показывать игроку с каким объектом в игровом мире взаимодействует игрок. Создаём новую сцену типа `Node2D` и называем его `Portal`.
+
+Создаём следующую структуру внутри объекта:
+
+- `InteractiveArea` (добавить через иконку цепочки; `ID`: `portal`, `UI Name`: `Портал`, `UI Desc`: `Войти`, `Disabled`: `True`, `Size`: `(x: 128, y: 128)`)
+- `Animation` (тип `AnimatedSprite2D`; вкладка `Animation` ➡️ `Sprite Frames`: `New SpriteFrames`)
+
+Внутри `SpriteFrames` должны быть созданы две анимации (рис. 6-1):
+- `default` (изначально пустая)
+- `open`
+
+<div style="text-align: center;"><img src="./images/6-1.png" alt="Рисунок 6-1 – Нижняя панель `SpriteFrames`"></div>
+<p align="center">Рисунок 6-1 – Нижняя панель `SpriteFrames`</p>
+
+Рядом с документом должна быть папка `resources` с предоставленным ресурсом `portal-sheet.png` внутри папки `sprites`. По желанию можете перенести ресурс в проект по идентичному пути (`res://resources/sprites/portal-sheet.png`).
+
+Первый кадр в ресурсе соответствует анимации `default`, второй кадр - анимации `open` (рис. 6-2).
+
+<div style="text-align: center;"><img src="./images/6-2.png" alt="Рисунок 6-2 – Настройка импорта кадров атласа портала"></div>
+<p align="center">Рисунок 6-2 – Настройка импорта кадров атласа портала</p>
+
+Сохраните сцену в папке `objects` ➡️ `portal` с названием файла `portal.tscn`.
+
+Создадим код для `Portal`:
+
+```gdscript
+class_name Portal
+extends Node2D
+
+enum Type { COMMON, END }
+enum State { CLOSE, OPEN }
+
+@export var state_init: State
+@export var type: Type = Type.COMMON
+@export var next_portal: Portal
+@export var next_level: PackedScene
+
+var state: State = State.CLOSE
+
+@onready var _interactive_area: InteractiveArea = $InteractiveArea
+@onready var _animation: AnimatedSprite2D = $Animation
+
+func _ready() -> void:
+	state = state_init
+	_set_state(state)
+	EventBus.interactive_item_interacted.connect(
+		_on_interactive_item_interacted.bind()
+	)
+
+func _set_state(value: State) -> void:
+	state = value
+	_check_state()
+
+func _check_state() -> void:
+	match state:
+		State.CLOSE:
+			_animation.play("default")
+			_interactive_area.disabled = true
+		State.OPEN:
+			_animation.play("open")
+			_interactive_area.disabled = false
+
+func _logic() -> void:
+	match type:
+		Type.COMMON: # Телепортация к другому порталу
+			if next_portal != null:
+				var player: Player = get_tree().get_first_node_in_group("Player")
+				player.global_position = next_portal.global_position
+		Type.END: # Переход на другой уровень
+			if next_level != null:
+				get_tree().change_scene_to_packed(next_level)
+			else:
+				# Изменим строку, когда появится главное меню
+				get_tree().quit()
+
+func _on_interactive_item_interacted(item: InteractiveArea) -> void:
+	match item.id:
+		"portal":
+			if item == _interactive_area:
+				_logic()
+```
+
+Добавим две копии данного объекта на уровень. Создадим узел `Objects` типа `Node2D` и расположим его выше по иерархии от игрока (рис. 6-3). Это нужно будет для того, чтобы игрок будто стоял перед объектами (в нашем случае - порталами). Настроим порталы так, чтобы свойство `Next Portal` у первого портала указывало на второй портал, а свойство `Next Portal` второго - на первый портал соответственно. У обоих порталов указать `State Init`: `Open`. В результате, при взаимодействии с первым порталом, игрок должен телепортироваться ко второму порталу и наоборот.
+
+<div style="text-align: center;"><img src="./images/6-3.png" alt="Рисунок 6-3 – Пример"></div>
+<p align="center">Рисунок 6-3 – Пример</p>
