@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dll6lfyno7oh5"]
+
+[ext_resource type="Script" path="res://objects/portal/connecter/portal_key_connecter.gd" id="1_wmhej"]
+
+[node name="PortalKeyConnecter" type="Node2D"]
+script = ExtResource("1_wmhej")

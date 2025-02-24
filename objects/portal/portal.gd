@@ -16,12 +16,12 @@ var state: State = State.CLOSE
 
 func _ready() -> void:
 	state = state_init
-	_set_state(state)
+	set_state(state)
 	EventBus.interactive_item_interacted.connect(
 		_on_interactive_item_interacted.bind()
 	)
 
-func _set_state(value: State) -> void:
+func set_state(value: State) -> void:
 	state = value
 	_check_state()
 

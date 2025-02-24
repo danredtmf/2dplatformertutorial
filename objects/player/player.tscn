@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dfnh645o880bx"]
+[gd_scene load_steps=13 format=3 uid="uid://dfnh645o880bx"]
 
 [ext_resource type="Script" path="res://objects/player/player.gd" id="1_1y8hs"]
 [ext_resource type="Texture2D" uid="uid://c7yjs8hu3t5kl" path="res://resources/sprites/player-sheet.png" id="1_25xjm"]
 [ext_resource type="PackedScene" uid="uid://b8xyueubwrof3" path="res://objects/player/detect_area/player_detect_area.tscn" id="3_vu3ea"]
 [ext_resource type="PackedScene" uid="uid://cicjqfp6nj26l" path="res://objects/interactive_ui/interactive_ui.tscn" id="4_lpvwc"]
+[ext_resource type="PackedScene" uid="uid://dg6pk6q1tbuf4" path="res://objects/player/coin_manager/player_coin_manager.tscn" id="4_vu2go"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dt1yw"]
 atlas = ExtResource("1_25xjm")
@@ -62,6 +63,7 @@ animations = [{
 size = Vector2(24, 64)
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("1_1y8hs")
 
 [node name="Animation" type="AnimatedSprite2D" parent="."]
@@ -72,6 +74,8 @@ animation = &"move"
 shape = SubResource("RectangleShape2D_flqhv")
 
 [node name="PlayerDetectArea" parent="." instance=ExtResource("3_vu3ea")]
-size = Vector2(24, 64)
+size = Vector2(5, 64)
+
+[node name="PlayerCoinManager" parent="." instance=ExtResource("4_vu2go")]
 
 [node name="InteractiveUI" parent="." instance=ExtResource("4_lpvwc")]

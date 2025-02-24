@@ -7,12 +7,20 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -600.0
 
 var current_state: State = State.Idle
+var is_busy: bool
 
 @onready var _animation: AnimatedSprite2D = $Animation
+@onready var _interactive_ui: InteractiveUI = $InteractiveUI
 
 func _ready() -> void:
 	add_to_group("Player")
 	_set_state(current_state)
+
+func set_busy(value: bool) -> void:
+	is_busy = value
+
+func get_interactive_ui() -> InteractiveUI:
+	return _interactive_ui
 
 func _set_state(value: State) -> void:
 	current_state = value
@@ -32,16 +40,17 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	# Прыжок
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-	
-	# Движение
-	var direction := Input.get_axis("left", "right")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+	if not is_busy:
+		# Прыжок
+		if Input.is_action_just_pressed("jump") and is_on_floor():
+			velocity.y = JUMP_VELOCITY
+		
+		# Движение
+		var direction := Input.get_axis("left", "right")
+		if direction:
+			velocity.x = direction * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	# Отражение анимации по горизонтали
 	if velocity.x < 0.0:

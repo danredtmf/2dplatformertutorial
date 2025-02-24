@@ -2,14 +2,16 @@
 
 [ext_resource type="Script" path="res://objects/player/detect_area/player_detect_area.gd" id="1_ipb8f"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mj6ea"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_orqaj"]
 
 [node name="PlayerDetectArea" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
 monitorable = false
 script = ExtResource("1_ipb8f")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_mj6ea")
+shape = SubResource("RectangleShape2D_orqaj")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]

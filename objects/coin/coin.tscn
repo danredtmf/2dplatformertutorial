@@ -1,0 +1,98 @@
+[gd_scene load_steps=7 format=3 uid="uid://cp6w3oxm2n5gh"]
+
+[ext_resource type="PackedScene" uid="uid://cpwavtj0hvrlr" path="res://objects/interactive_area/interactive_area.tscn" id="1_aj38e"]
+[ext_resource type="Script" path="res://objects/coin/coin.gd" id="1_e8vu2"]
+[ext_resource type="Texture2D" uid="uid://cyosc5xmhp0gr" path="res://resources/sprites/coin.png" id="2_an1vj"]
+
+[sub_resource type="Animation" id="Animation_mbgb0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Polygon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_m2yb3"]
+resource_name = "show"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Polygon:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k6x81"]
+_data = {
+"RESET": SubResource("Animation_mbgb0"),
+"show": SubResource("Animation_m2yb3")
+}
+
+[node name="Coin" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 9
+contact_monitor = true
+max_contacts_reported = 10
+script = ExtResource("1_e8vu2")
+
+[node name="InteractiveArea" parent="." instance=ExtResource("1_aj38e")]
+id = "coin"
+ui_name = "Монета"
+ui_desc = "Взять"
+delete_after = true
+size = Vector2(64, 64)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("2_an1vj")
+
+[node name="Polygon" type="CollisionPolygon2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
+polygon = PackedVector2Array(20, -32, -20, -32, -20, -28, -24, -28, -24, -24, -28, -24, -28, -20, -32, -20, -32, 20, -28, 20, -28, 24, -24, 24, -24, 28, -20, 28, -20, 32, 20, 32, 20, 28, 24, 28, 24, 24, 28, 24, 28, 20, 32, 20, 32, -20, 28, -20, 28, -24, 24, -24, 24, -28, 20, -28)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_k6x81")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="tree_exited" from="InteractiveArea" to="." method="_on_interactive_area_tree_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -34,4 +34,5 @@ func _on_area_entered(area: Area2D) -> void:
 
 func _on_area_exited(area: Area2D) -> void:
 	if area is InteractiveArea:
-		EventBus.interactive_ui_hide.emit()
+		if _last_area == area:
+			EventBus.interactive_ui_hide.emit()

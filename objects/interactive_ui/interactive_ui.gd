@@ -1,6 +1,8 @@
 class_name InteractiveUI
 extends PanelContainer
 
+var is_busy: bool
+
 var _item: InteractiveArea
 
 @onready var _item_name: Label = %ItemName
@@ -11,9 +13,12 @@ func _ready() -> void:
 	_config_signals()
 
 func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("interact"):
+	if Input.is_action_just_pressed("interact") and not is_busy:
 		if visible and is_instance_valid(_item):
 			_item.interact()
+
+func set_busy(value: bool) -> void:
+	is_busy = value
 
 func _config_signals() -> void:
 	EventBus.interactive_ui_shown.connect(_on_interactive_ui_shown.bind())

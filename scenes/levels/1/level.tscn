@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=4 uid="uid://bnral403ek1kp"]
+[gd_scene load_steps=9 format=4 uid="uid://bnral403ek1kp"]
 
 [ext_resource type="TileSet" uid="uid://cxtffd78cew8r" path="res://resources/tile_sets/default.tres" id="2_xqf34"]
 [ext_resource type="Texture2D" uid="uid://c2qwrfshs1gs5" path="res://resources/backgrounds/sky-day.png" id="3_j8y0s"]
 [ext_resource type="PackedScene" uid="uid://dfnh645o880bx" path="res://objects/player/player.tscn" id="3_kc0g2"]
 [ext_resource type="PackedScene" uid="uid://dlpmhavbeiede" path="res://objects/world_camera/world_camera.tscn" id="4_cfocl"]
+[ext_resource type="PackedScene" uid="uid://jfhioe82ne6x" path="res://objects/portal/key/portal_key.tscn" id="4_viwme"]
+[ext_resource type="PackedScene" uid="uid://cp6w3oxm2n5gh" path="res://objects/coin/coin.tscn" id="5_coibk"]
 [ext_resource type="PackedScene" uid="uid://dqt7rilymelvb" path="res://objects/portal/portal.tscn" id="5_cqwd3"]
+[ext_resource type="PackedScene" uid="uid://dll6lfyno7oh5" path="res://objects/portal/connecter/portal_key_connecter.tscn" id="7_sopyj"]
 
 [node name="Level" type="Node2D"]
 
@@ -33,8 +36,16 @@ next_portal = NodePath("../Portal2")
 
 [node name="Portal2" parent="Objects" node_paths=PackedStringArray("next_portal") instance=ExtResource("5_cqwd3")]
 position = Vector2(768, 512)
-state_init = 1
 next_portal = NodePath("../Portal")
+
+[node name="PortalKey" parent="Objects" instance=ExtResource("4_viwme")]
+position = Vector2(512, 416)
+
+[node name="PortalKey2" parent="Objects" instance=ExtResource("4_viwme")]
+position = Vector2(640, 416)
+
+[node name="Coin" parent="Objects" instance=ExtResource("5_coibk")]
+position = Vector2(192, 224)
 
 [node name="Player" parent="." instance=ExtResource("3_kc0g2")]
 position = Vector2(64, 512)
@@ -45,3 +56,7 @@ limit_bottom = 650
 limit_smoothed = true
 editor_draw_limits = true
 player = NodePath("../Player")
+
+[node name="PortalKeyConnecter" parent="." node_paths=PackedStringArray("portal", "portal_key") instance=ExtResource("7_sopyj")]
+portal = NodePath("../Objects/Portal2")
+portal_key = NodePath("../Objects/PortalKey2")
