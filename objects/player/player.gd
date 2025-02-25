@@ -40,18 +40,16 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	# TODO Баг, игрок продолжает двигается после нажатия drop
-	if not is_busy:
-		# Прыжок
-		if Input.is_action_just_pressed("jump") and is_on_floor():
-			velocity.y = JUMP_VELOCITY
+	# Прыжок
+	if Input.is_action_just_pressed("jump") and is_on_floor() and not is_busy:
+		velocity.y = JUMP_VELOCITY
 		
-		# Движение
-		var direction := Input.get_axis("left", "right")
-		if direction:
-			velocity.x = direction * SPEED
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
+	# Движение
+	var direction := Input.get_axis("left", "right")
+	if direction and not is_busy:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	# Отражение анимации по горизонтали
 	if velocity.x < 0.0:
