@@ -581,3 +581,8 @@ func _on_interactive_item_interacted(item: InteractiveArea) -> void:
 
 <div style="text-align: center;"><img src="./images/7-1.png" alt="Рисунок 7-1 – Режим предварительного размещения монеты"></div>
 <p align="center">Рисунок 7-1 – Режим предварительного размещения монеты</p>
+
+> Не бойтесь изменять размер `PlayerDetectArea` (рис. 7-2)
+
+<div style="text-align: center;"><img src="./images/7-2.png" alt="Рисунок 7-2 – Размер `PlayerDetectArea` у игрока"></div>
+<p align="center">Рисунок 7-2 – Размер `PlayerDetectArea` у игрока</p>
