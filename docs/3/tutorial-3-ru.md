@@ -4,9 +4,16 @@
 
 ## Содержание
 
-Текст
+- [1. Подготовка](#1-подготовка)
+- [2. Создание ключа для портала](#2-создание-ключа-для-портала)
+- [3. Изменение слоёв и масок коллизии у объектов](#3-изменение-слоёв-и-масок-коллизии-у-объектов)
+- [4. Изменение кода у объектов](#4-изменение-кода-у-объектов)
+- [5. Возможность открывать портал с помощью ключа](#5-возможность-открывать-портал-с-помощью-ключа)
+- [6. Создание монеты](#6-создание-монеты)
+- [7. Способность игрока: размещение монеты в мире](#7-способность-игрока-размещение-монеты-в-мире)
 
-## Подготовка
+
+## 1. Подготовка
 
 Для начала добавим новое действие на клавишу, а также добавим к некоторым предустановленным действиям новые клавиши.
 
@@ -26,7 +33,7 @@
 <div style="text-align: center;"><img src="./images/1-1.png" alt="Рисунок 1-1 – Добавление новых клавиш к предустановленным действиям"></div>
 <p align="center">Рисунок 1-1 – Добавление новых клавиш к предустановленным действиям</p>
 
-## Создание ключа для портала
+## 2. Создание ключа для портала
 
 Создаём новую сцену типа `RigidBody2D` и называем его `PortalKey`. 
 
@@ -135,7 +142,7 @@ func _on_interactive_area_tree_exited() -> void:
 
 Добавляем данный узел на уровень.
 
-## Изменение слоёв и масок коллизии у объектов
+## 3. Изменение слоёв и масок коллизии у объектов
 
 - Узел `InteractiveArea`
   - В группе `Layer` выберем слой `3` (`Interactive`) и выключим слой `1` (`World`). Группу масок не изменяем.
@@ -144,7 +151,7 @@ func _on_interactive_area_tree_exited() -> void:
 - Узел `PlayerDetectArea`
   - В группе `Layer` выключим все слои. В группе `Mask` выберем слой `3` (`Interactive`) и выключим слой `1` (`World`).
 
-## Изменение кода у объектов
+## 4. Изменение кода у объектов
 
 > Новые строчки кода будут помечаться комментарием `#!`, отредактированные строчки - `#?`
 
@@ -236,22 +243,22 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	if not is_busy: #!
-        #? Прыжок и движение теперь в условии
-		# Прыжок
-		if Input.is_action_just_pressed("jump") and is_on_floor():
-			velocity.y = JUMP_VELOCITY
+	# Прыжок
+	#? Дополнение условия
+	if Input.is_action_just_pressed("jump") and is_on_floor() and not is_busy:
+		velocity.y = JUMP_VELOCITY
 		
-		# Движение
-		var direction := Input.get_axis("left", "right")
-		if direction:
-			velocity.x = direction * SPEED
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
+	# Движение
+	var direction := Input.get_axis("left", "right")
+	#? Дополнение условия
+	if direction and not is_busy:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	...
-    ...
-    ...
+	...
+	...
 ```
 
 Код `PlayerDetectArea`:
@@ -300,7 +307,7 @@ func set_busy(value: bool) -> void:
 ...
 ```
 
-## Возможность открывать портал с помощью ключа
+## 5. Возможность открывать портал с помощью ключа
 
 Создаём новую сцену типа `Node2D` и называем его `PortalKeyConnecter`.
 
@@ -347,19 +354,19 @@ func _on_interactive_item_interacted(item: InteractiveArea) -> void:
 
 Добавляем данный узел на уровень и указываем портал и ключ в свойствах `Portal` и `Portal Key` соответственно.
 
-## Создание монеты
+## 6. Создание монеты
 
 Создаём новую сцену типа `RigidBody2D` и называем его `Coin`.
 
-- указать слои и маски
-- вкладка `Solver`
-- решить баг у игрока
+Во вкладке `Collision` в группе `Layer` выберем слой `3` (`Interactive`) и выключим слой `1` (`World`). В группе `Mask` выберем слой `4` (`Enemy`), маску `1` (`World`) оставим.
+
+Также включим `Contact Monitor` во вкладке `Solver` и укажем значение `10` в свойстве `Max Contacts Reported` (возможно, в будущем мы изменим значение, в данном документе эта возможность не пригодится).
 
 Создаём следующую структуру внутри объекта:
 
 - `InteractiveArea` (`ID`: `coin`, `UI Name`: `Монета`, `UI Desc`: `Взять`, `Delete After`: `true`, `Size`: `(x: 64, y: 64)`)
 - `Sprite2D` (`Texture`: выбираем спрайт ключа `coin.png`, `Scale`: `(x: 0, y: 0)`)
-- `Polygon` (тип `CollisionPolygon2D`; создать с помощью `Sprite2D`)
+- `Polygon` (тип `CollisionPolygon2D`; создать с помощью `Sprite2D`, `Scale`: `(x: 0, y: 0)`)
 - `AnimationPlayer` (создать анимацию `show`, такую же, как у узла `PortalKey`)
 
 Сохраните сцену в папке `objects` ➡️ `coin` с названием файла `coin.tscn`.
@@ -400,6 +407,177 @@ func _on_body_entered(body: Node) -> void:
 
 Добавим монету на уровень.
 
-## Способность игрока: размещение монеты в мире
+## 7. Способность игрока: размещение монеты в мире
 
-Текст
+Создаём новую сцену типа `RigidBody2D` и называем его `PlayerCoinManager`.
+
+Сохраните сцену в папке `objects` ➡️ `player` ➡️ `coin_manager` с названием файла `player_coin_manager.tscn`.
+
+Данный узел должен быть дочерним объектов внутри сцены `Player`, добавьте его к игроку и у него в совсем скоро появится возможность собирать монеты и располагать их на уровне.
+
+Создадим код для `PlayerCoinManager`:
+
+```gdscript
+class_name PlayerCoinManager
+extends Node2D
+
+enum States { OFF, ON }
+
+const COIN_SCENE := preload("res://objects/coin/coin.tscn")
+const COIN_SPRITE := preload("res://resources/sprites/coin.png")
+
+const PREVIEW_POSITION_LIMIT := 200.0
+
+var coins: int
+var state: States = States.OFF
+
+var _can_drop: bool
+var _preview_coin: Sprite2D
+
+func _ready() -> void:
+	add_to_group("PlayerCoinManager")
+	EventBus.interactive_item_interacted.connect(
+		_on_interactive_item_interacted.bind()
+	)
+	
+	if owner is not Player:
+		printerr(
+			"[%s, %s]: объект вне `Player`" %\
+			[name, owner.scene_file_path]
+		)
+
+func _set_state(value: States) -> void:
+	state = value
+	_check_state()
+
+func _check_state() -> void:
+	var player := owner as Player
+	var interactive_ui := player.get_interactive_ui()
+	var world_camera := get_tree().get_first_node_in_group("WorldCamera") as WorldCamera
+	match state:
+		States.OFF:
+			player.set_busy(false)
+			interactive_ui.set_busy(false)
+			_remove_preview_coin()
+			_pin_to_world_camera(world_camera, player)
+		States.ON:
+			player.set_busy(true)
+			interactive_ui.set_busy(true)
+			_add_preview_coin()
+			_pin_to_world_camera(world_camera, _preview_coin)
+
+func _pin_to_world_camera(camera: WorldCamera, node_2d: Node2D) -> void:
+	if node_2d is Player:
+		camera.node_2d = null
+		camera.pin_to_player = true
+	else:
+		camera.node_2d = node_2d
+		camera.pin_to_player = false
+
+func _add_preview_coin() -> void:
+	var sprite := Sprite2D.new()
+	sprite.texture = COIN_SPRITE
+	sprite.modulate.a = 0.5
+	_preview_coin = sprite
+	add_child(_preview_coin)
+	_check_preview_coin_position()
+
+func _check_preview_coin_position() -> void:
+	# Проверка, сможем ли мы бросить в место монетку
+	if is_instance_valid(_preview_coin):
+		var world := get_world_2d()
+		var space_state := world.direct_space_state
+		var parameters := PhysicsShapeQueryParameters2D.new()
+		var shape := RectangleShape2D.new()
+		
+		shape.size = Vector2(60, 60)
+		
+		parameters.collision_mask = 1
+		parameters.transform = _preview_coin.global_transform
+		parameters.shape = shape
+		
+		var results := space_state.intersect_shape(parameters)
+		
+		if results.size() > 0:
+			_can_drop = false
+			_preview_coin.self_modulate = Color.RED
+		else:
+			_can_drop = true
+			_preview_coin.self_modulate = Color.WHITE
+
+func _move_preview_coin(direction: Vector2) -> void:
+	match direction:
+		Vector2.UP:
+			_preview_coin.position.y = clampf(
+				_preview_coin.position.y - 20,
+				-PREVIEW_POSITION_LIMIT,
+				PREVIEW_POSITION_LIMIT
+			)
+		Vector2.DOWN:
+			_preview_coin.position.y = clampf(
+				_preview_coin.position.y + 20,
+				-PREVIEW_POSITION_LIMIT,
+				PREVIEW_POSITION_LIMIT
+			)
+		Vector2.LEFT:
+			_preview_coin.position.x = clampf(
+				_preview_coin.position.x - 20,
+				-PREVIEW_POSITION_LIMIT,
+				PREVIEW_POSITION_LIMIT
+			)
+		Vector2.RIGHT:
+			_preview_coin.position.x = clampf(
+				_preview_coin.position.x + 20,
+				-PREVIEW_POSITION_LIMIT,
+				PREVIEW_POSITION_LIMIT
+			)
+	
+	_check_preview_coin_position()
+
+func _remove_preview_coin() -> void:
+	if is_instance_valid(_preview_coin):
+		_preview_coin.queue_free()
+		_preview_coin = null
+
+func _drop() -> void:
+	if coins > 0 and _can_drop:
+		var new_coin := COIN_SCENE.instantiate()
+		# На уровне должен быть узел `Objects` типа `Node2D`
+		# По иерархии он должен быть выше узла `Player`
+		get_tree().current_scene.get_node("Objects").add_child(new_coin)
+		new_coin.global_position = _preview_coin.global_position
+		coins -= 1
+		
+		if coins < 1:
+			_set_state(States.OFF)
+
+func _input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("drop"):
+		match state:
+			States.OFF:
+				if coins > 0:
+					_set_state(States.ON)
+			States.ON:
+				_set_state(States.OFF)
+	elif state == States.ON:
+		if Input.is_action_just_pressed("interact"):
+			_drop()
+		elif Input.is_action_pressed("ui_up"):
+			_move_preview_coin(Vector2.UP)
+		elif Input.is_action_pressed("ui_down"):
+			_move_preview_coin(Vector2.DOWN)
+		elif Input.is_action_pressed("ui_left"):
+			_move_preview_coin(Vector2.LEFT)
+		elif Input.is_action_pressed("ui_right"):
+			_move_preview_coin(Vector2.RIGHT)
+
+func _on_interactive_item_interacted(item: InteractiveArea) -> void:
+	match item.id:
+		"coin":
+			coins += 1
+```
+
+Теперь, игрок сможет подбирать монеты и их собранное количество будет учитывать данный объект. Если у игрока есть монеты с собой, можно нажать на клавишу `Q` чтобы перейти в режим предварительного размещения монеты. В данном режиме, камера будет следить за расположением призрачной монетой, которым игрок двигает с помощью клавиш `WASD` или стрелок `⬆️⬅️⬇️➡️` на клавиатуре, и размещать её на уровне с помощью клавиши `E`. Чтобы выйти из этого режима, нужно нажать на клавишу `Q`.
+
+<div style="text-align: center;"><img src="./images/7-1.png" alt="Рисунок 7-1 – Режим предварительного размещения монеты"></div>
+<p align="center">Рисунок 7-1 – Режим предварительного размещения монеты</p>
