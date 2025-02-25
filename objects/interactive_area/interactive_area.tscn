@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" path="res://objects/interactive_area/interactive_area.gd" id="1_lujbt"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fx338"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wdxdo"]
 
 [node name="InteractiveArea" type="Area2D"]
 collision_layer = 4
 script = ExtResource("1_lujbt")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_fx338")
+shape = SubResource("RectangleShape2D_wdxdo")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
