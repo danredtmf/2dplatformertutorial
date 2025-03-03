@@ -1,0 +1,75 @@
+[gd_scene load_steps=13 format=3 uid="uid://c0fjse1p3uoe8"]
+
+[ext_resource type="PackedScene" uid="uid://5upqx8dlpdkc" path="res://objects/enemy/base/enemy_base.tscn" id="1_k667l"]
+[ext_resource type="Script" path="res://objects/enemy/floating/floating_enemy.gd" id="2_m4ngh"]
+[ext_resource type="Texture2D" uid="uid://761let5m4twf" path="res://resources/sprites/enemy-red-light.png" id="2_mkqda"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_67p0d"]
+size = Vector2(64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j84yh"]
+atlas = ExtResource("2_mkqda")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qirlp"]
+atlas = ExtResource("2_mkqda")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eijr"]
+atlas = ExtResource("2_mkqda")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdawm"]
+atlas = ExtResource("2_mkqda")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tjn5"]
+atlas = ExtResource("2_mkqda")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgnl7"]
+atlas = ExtResource("2_mkqda")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cr0d7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j84yh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qirlp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3eijr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdawm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tjn5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qgnl7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5jn2x"]
+size = Vector2(256, 64)
+
+[node name="FloatingEnemy" instance=ExtResource("1_k667l")]
+script = ExtResource("2_m4ngh")
+health = 1
+speed = 100.0
+
+[node name="Collision" parent="." index="0"]
+shape = SubResource("RectangleShape2D_67p0d")
+
+[node name="Animation" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_cr0d7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseZone" index="0"]
+shape = SubResource("RectangleShape2D_5jn2x")

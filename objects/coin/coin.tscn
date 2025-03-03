@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cp6w3oxm2n5gh"]
+[gd_scene load_steps=8 format=3 uid="uid://cp6w3oxm2n5gh"]
 
 [ext_resource type="PackedScene" uid="uid://cpwavtj0hvrlr" path="res://objects/interactive_area/interactive_area.tscn" id="1_aj38e"]
 [ext_resource type="Script" path="res://objects/coin/coin.gd" id="1_e8vu2"]
@@ -66,10 +66,11 @@ _data = {
 "show": SubResource("Animation_m2yb3")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vk5t2"]
+size = Vector2(64, 64)
+
 [node name="Coin" type="RigidBody2D"]
 collision_layer = 4
-collision_mask = 9
-contact_monitor = true
 max_contacts_reported = 10
 script = ExtResource("1_e8vu2")
 
@@ -93,6 +94,11 @@ libraries = {
 "": SubResource("AnimationLibrary_k6x81")
 }
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="ShapeCast2D" type="ShapeCast2D" parent="."]
+shape = SubResource("RectangleShape2D_vk5t2")
+target_position = Vector2(0, 0)
+max_results = 5
+collision_mask = 8
+
 [connection signal="tree_exited" from="InteractiveArea" to="." method="_on_interactive_area_tree_exited"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

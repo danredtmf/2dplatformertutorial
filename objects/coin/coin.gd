@@ -1,12 +1,27 @@
 class_name Coin
 extends RigidBody2D
 
+var _last_object: EnemyBase
+
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 @onready var _interactive_area: InteractiveArea = $InteractiveArea
+@onready var _shape_cast_2d: ShapeCast2D = $ShapeCast2D
 
 func _ready() -> void:
 	_animation_player.play("show")
 	gravity_scale = 0.0
+
+func _physics_process(_delta: float) -> void:
+	if _shape_cast_2d.is_colliding():
+		var object := _shape_cast_2d.get_collider(0)
+		if object is EnemyBase:
+			if object != _last_object:
+				_last_object = object
+				
+				_last_object.hit()
+				can_sleep = false
+				await _last_object.tree_exited
+				can_sleep = true
 
 func get_interactive() -> InteractiveArea:
 	return _interactive_area
@@ -23,7 +38,3 @@ func _on_interactive_area_tree_exited() -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "show":
 		gravity_scale = 1.0
-
-# Нужно привязать сигнал `_on_body_entered` у родительского объекта `Coin`
-func _on_body_entered(body: Node) -> void:
-	pass
