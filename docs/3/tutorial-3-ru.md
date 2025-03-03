@@ -409,7 +409,7 @@ func _on_body_entered(body: Node) -> void:
 
 ## 7. Способность игрока: размещение монеты в мире
 
-Создаём новую сцену типа `RigidBody2D` и называем его `PlayerCoinManager`.
+Создаём новую сцену типа `Node2D` и называем его `PlayerCoinManager`.
 
 Сохраните сцену в папке `objects` ➡️ `player` ➡️ `coin_manager` с названием файла `player_coin_manager.tscn`.
 
