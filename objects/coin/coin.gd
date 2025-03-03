@@ -2,6 +2,7 @@ class_name Coin
 extends RigidBody2D
 
 var _last_object: EnemyBase
+var _can_hit: bool
 
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 @onready var _interactive_area: InteractiveArea = $InteractiveArea
@@ -12,7 +13,12 @@ func _ready() -> void:
 	gravity_scale = 0.0
 
 func _physics_process(_delta: float) -> void:
-	if _shape_cast_2d.is_colliding():
+	if _animation_player.is_playing() or not sleeping:
+		_can_hit = true
+	else:
+		_can_hit = false
+	
+	if _shape_cast_2d.is_colliding() and _can_hit:
 		var object := _shape_cast_2d.get_collider(0)
 		if object is EnemyBase:
 			if object != _last_object:
