@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c0fjse1p3uoe8"]
+[gd_scene load_steps=14 format=3 uid="uid://c0fjse1p3uoe8"]
 
 [ext_resource type="PackedScene" uid="uid://5upqx8dlpdkc" path="res://objects/enemy/base/enemy_base.tscn" id="1_k667l"]
 [ext_resource type="Script" path="res://objects/enemy/floating/floating_enemy.gd" id="2_m4ngh"]
@@ -60,6 +60,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5jn2x"]
 size = Vector2(256, 64)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_33iou"]
+size = Vector2(64, 64)
+
 [node name="FloatingEnemy" instance=ExtResource("1_k667l")]
 script = ExtResource("2_m4ngh")
 health = 1
@@ -73,3 +76,6 @@ sprite_frames = SubResource("SpriteFrames_cr0d7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseZone" index="0"]
 shape = SubResource("RectangleShape2D_5jn2x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CatchZone" index="0"]
+shape = SubResource("RectangleShape2D_33iou")

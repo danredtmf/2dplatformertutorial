@@ -79,4 +79,9 @@ libraries = {
 collision_layer = 0
 collision_mask = 2
 
+[node name="CatchZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
 [connection signal="body_entered" from="ChaseZone" to="." method="_on_chase_zone_body_entered"]
+[connection signal="body_entered" from="CatchZone" to="." method="_on_catch_zone_body_entered"]

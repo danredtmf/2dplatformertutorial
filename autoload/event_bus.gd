@@ -10,3 +10,7 @@ signal interactive_ui_shown(item)
 signal interactive_ui_hide
 @warning_ignore("unused_signal")
 signal interactive_item_interacted(item)
+
+# Игрока поймали
+@warning_ignore("unused_signal")
+signal get_caught

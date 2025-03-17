@@ -13,7 +13,7 @@ func _ready() -> void:
 	_config_signals()
 
 func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("interact") and not is_busy:
+	if Input.is_action_just_pressed("interact") and not is_busy and not (owner as Player).is_caught:
 		if visible and is_instance_valid(_item):
 			_item.interact()
 

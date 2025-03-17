@@ -86,3 +86,7 @@ func _die() -> void:
 func _on_chase_zone_body_entered(body: Node2D) -> void:
 	if body is Player:
 		state = States.CHASE
+
+func _on_catch_zone_body_entered(body: Node2D) -> void:
+	if body is Player:
+		body.get_caught()
