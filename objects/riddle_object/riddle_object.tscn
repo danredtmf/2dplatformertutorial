@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://beb23o1thwaqi"]
+
+[ext_resource type="PackedScene" uid="uid://cpwavtj0hvrlr" path="res://objects/interactive_area/interactive_area.tscn" id="1_6cmym"]
+[ext_resource type="Script" path="res://objects/riddle_object/riddle_object.gd" id="2_0u1g5"]
+[ext_resource type="Texture2D" uid="uid://du3s84qhheayi" path="res://resources/sprites/riddle_object.png" id="2_w35hs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rcc5h"]
+size = Vector2(64, 64)
+
+[node name="RiddleObject" instance=ExtResource("1_6cmym")]
+script = ExtResource("2_0u1g5")
+riddle_type = 0
+riddle_id = ""
+id = "riddle"
+ui_name = "Загадка"
+ui_desc = "Решить"
+size = Vector2(64, 64)
+
+[node name="Shape" parent="." index="0"]
+shape = SubResource("RectangleShape2D_rcc5h")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_w35hs")

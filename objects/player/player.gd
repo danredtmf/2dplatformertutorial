@@ -15,6 +15,7 @@ var is_caught: bool
 @onready var _player_coin_manager: PlayerCoinManager = $PlayerCoinManager
 
 func _ready() -> void:
+	EventBus.set_busy_player.connect(set_busy.bind())
 	add_to_group("Player")
 	_set_state(current_state)
 

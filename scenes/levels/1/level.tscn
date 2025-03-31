@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=4 uid="uid://bnral403ek1kp"]
+[gd_scene load_steps=13 format=4 uid="uid://bnral403ek1kp"]
 
 [ext_resource type="PackedScene" uid="uid://bh8gur45rsk8g" path="res://scenes/base_level/base_level.tscn" id="1_xx7ip"]
+[ext_resource type="Script" path="res://scenes/levels/1/level.gd" id="2_eu8kp"]
 [ext_resource type="TileSet" uid="uid://cxtffd78cew8r" path="res://resources/tile_sets/default.tres" id="2_xqf34"]
 [ext_resource type="Texture2D" uid="uid://c2qwrfshs1gs5" path="res://resources/backgrounds/sky-day.png" id="3_j8y0s"]
 [ext_resource type="PackedScene" uid="uid://dfnh645o880bx" path="res://objects/player/player.tscn" id="3_kc0g2"]
@@ -10,8 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://dqt7rilymelvb" path="res://objects/portal/portal.tscn" id="5_cqwd3"]
 [ext_resource type="PackedScene" uid="uid://c0fjse1p3uoe8" path="res://objects/enemy/floating/floating_enemy.tscn" id="6_35xbo"]
 [ext_resource type="PackedScene" uid="uid://dll6lfyno7oh5" path="res://objects/portal/connecter/portal_key_connecter.tscn" id="7_sopyj"]
+[ext_resource type="PackedScene" uid="uid://beb23o1thwaqi" path="res://objects/riddle_object/riddle_object.tscn" id="8_h6qpu"]
 
 [node name="BaseLevel" instance=ExtResource("1_xx7ip")]
+script = ExtResource("2_eu8kp")
 
 [node name="BGLayer" type="CanvasLayer" parent="." index="0"]
 layer = -100
@@ -40,14 +43,22 @@ next_portal = NodePath("../Portal2")
 position = Vector2(768, 512)
 next_portal = NodePath("../Portal")
 
-[node name="PortalKey" parent="Objects" index="2" instance=ExtResource("4_viwme")]
+[node name="Portal3" parent="Objects" index="2" node_paths=PackedStringArray("next_portal") instance=ExtResource("5_cqwd3")]
+position = Vector2(1152, 512)
+next_portal = NodePath("../Portal2")
+
+[node name="PortalKey" parent="Objects" index="3" instance=ExtResource("4_viwme")]
 position = Vector2(512, 416)
 
-[node name="PortalKey2" parent="Objects" index="3" instance=ExtResource("4_viwme")]
+[node name="PortalKey2" parent="Objects" index="4" instance=ExtResource("4_viwme")]
 position = Vector2(640, 416)
 
-[node name="Coin" parent="Objects" index="4" instance=ExtResource("5_coibk")]
+[node name="Coin" parent="Objects" index="5" instance=ExtResource("5_coibk")]
 position = Vector2(192, 224)
+
+[node name="RiddleObject" parent="Objects" index="6" instance=ExtResource("8_h6qpu")]
+position = Vector2(960, 528)
+riddle_id = "open_last_portal"
 
 [node name="Enemies" type="Node2D" parent="." index="3"]
 

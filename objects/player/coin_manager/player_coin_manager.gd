@@ -132,7 +132,9 @@ func _drop() -> void:
 			_set_state(States.OFF)
 
 func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("drop") and not (owner as Player).is_caught:
+	if Input.is_action_just_pressed("drop") and \
+	not (owner as Player).is_caught and \
+	not (owner as Player).is_busy:
 		match state:
 			States.OFF:
 				if coins > 0:

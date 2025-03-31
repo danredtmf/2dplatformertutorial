@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dl1hgewxdgaec"]
+
+[ext_resource type="Script" path="res://objects/riddles/lines/connection_point/connection_point.gd" id="1_rr5xh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cjlvn"]
+size = Vector2(15, 15)
+
+[node name="ConnectionPoint" type="StaticBody2D" groups=["Point"]]
+script = ExtResource("1_rr5xh")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cjlvn")

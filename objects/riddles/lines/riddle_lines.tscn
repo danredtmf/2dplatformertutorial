@@ -1,0 +1,152 @@
+[gd_scene load_steps=12 format=3 uid="uid://bm7b4t6gxosj8"]
+
+[ext_resource type="Script" path="res://objects/riddles/lines/riddle_lines.gd" id="1_1jmw4"]
+[ext_resource type="Texture2D" uid="uid://jhe1nw7rw760" path="res://resources/sprites/fix_connections_game/game_area.png" id="1_qrfp5"]
+[ext_resource type="Texture2D" uid="uid://bdlwa3tvkym86" path="res://resources/sprites/fix_connections_game/game_area_shadow.png" id="2_43wny"]
+[ext_resource type="Texture2D" uid="uid://bsnv2eq78nsf4" path="res://resources/sprites/fix_connections_game/yellow_point_left_normal.png" id="2_a3hqb"]
+[ext_resource type="Texture2D" uid="uid://bdphtr4tsd3im" path="res://resources/sprites/fix_connections_game/blue_point_left_normal.png" id="3_pymja"]
+[ext_resource type="Texture2D" uid="uid://dwgm78fiyq8ml" path="res://resources/sprites/fix_connections_game/purple_point_left_normal.png" id="4_yfg6v"]
+[ext_resource type="Texture2D" uid="uid://cibt7hffpe0q4" path="res://resources/sprites/fix_connections_game/red_point_left_normal.png" id="5_cwaaa"]
+[ext_resource type="Texture2D" uid="uid://re5jeghilva7" path="res://resources/sprites/fix_connections_game/yellow_point_right_normal.png" id="6_t5un1"]
+[ext_resource type="Texture2D" uid="uid://crpbuxype7nis" path="res://resources/sprites/fix_connections_game/blue_point_right_normal.png" id="7_nk22d"]
+[ext_resource type="Texture2D" uid="uid://ywagunm2f6k6" path="res://resources/sprites/fix_connections_game/purple_point_right_normal.png" id="8_065y2"]
+[ext_resource type="Texture2D" uid="uid://cbn43aw3lpd2e" path="res://resources/sprites/fix_connections_game/red_point_right_normal.png" id="9_dv1v6"]
+
+[node name="RiddleLines" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1jmw4")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.282353, 0.454902, 0.580392, 1)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainVBox" type="VBoxContainer" parent="Center"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 25
+
+[node name="GameName" type="Label" parent="Center/MainVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Восстановление связей"
+horizontal_alignment = 1
+
+[node name="GameArea" type="TextureRect" parent="Center/MainVBox"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_qrfp5")
+
+[node name="ViewContainer" type="SubViewportContainer" parent="Center/MainVBox/GameArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Center/MainVBox/GameArea/ViewContainer"]
+unique_name_in_owner = true
+transparent_bg = true
+handle_input_locally = false
+physics_object_picking = true
+size = Vector2i(500, 500)
+render_target_update_mode = 4
+
+[node name="GameZone" type="Node2D" parent="Center/MainVBox/GameArea/ViewContainer/SubViewport"]
+unique_name_in_owner = true
+
+[node name="Preview" type="Node2D" parent="Center/MainVBox/GameArea/ViewContainer/SubViewport/GameZone"]
+unique_name_in_owner = true
+
+[node name="YellowLine" type="Line2D" parent="Center/MainVBox/GameArea/ViewContainer/SubViewport/GameZone/Preview"]
+points = PackedVector2Array(13, 60, 488, 440)
+default_color = Color(0.976471, 0.905882, 0.0470588, 1)
+
+[node name="BlueLine" type="Line2D" parent="Center/MainVBox/GameArea/ViewContainer/SubViewport/GameZone/Preview"]
+points = PackedVector2Array(13, 180, 488, 320)
+default_color = Color(0.137255, 0.14902, 0.960784, 1)
+
+[node name="PurpleLine" type="Line2D" parent="Center/MainVBox/GameArea/ViewContainer/SubViewport/GameZone/Preview"]
+points = PackedVector2Array(13, 320, 488, 180)
+default_color = Color(0.996078, 0.0156863, 0.992157, 1)
+
+[node name="RedLine" type="Line2D" parent="Center/MainVBox/GameArea/ViewContainer/SubViewport/GameZone/Preview"]
+points = PackedVector2Array(13, 440, 488, 60)
+default_color = Color(0.964706, 0.0196078, 0.0156863, 1)
+
+[node name="YellowPointLeft" type="Sprite2D" parent="Center/MainVBox/GameArea/ViewContainer/SubViewport/GameZone/Preview"]
+position = Vector2(13, 60)
+texture = ExtResource("2_a3hqb")
+
+[node name="BluePointLeft" type="Sprite2D" parent="Center/MainVBox/GameArea/ViewContainer/SubViewport/GameZone/Preview"]
+position = Vector2(13, 180)
+texture = ExtResource("3_pymja")
+
+[node name="PurplePointLeft" type="Sprite2D" parent="Center/MainVBox/GameArea/ViewContainer/SubViewport/GameZone/Preview"]
+position = Vector2(13, 320)
+texture = ExtResource("4_yfg6v")
+
+[node name="RedPointLeft" type="Sprite2D" parent="Center/MainVBox/GameArea/ViewContainer/SubViewport/GameZone/Preview"]
+position = Vector2(13, 440)
+texture = ExtResource("5_cwaaa")
+
+[node name="YellowPointRight" type="Sprite2D" parent="Center/MainVBox/GameArea/ViewContainer/SubViewport/GameZone/Preview"]
+position = Vector2(488, 440)
+texture = ExtResource("6_t5un1")
+
+[node name="BluePointRight" type="Sprite2D" parent="Center/MainVBox/GameArea/ViewContainer/SubViewport/GameZone/Preview"]
+position = Vector2(488, 320)
+texture = ExtResource("7_nk22d")
+
+[node name="PurplePointRight" type="Sprite2D" parent="Center/MainVBox/GameArea/ViewContainer/SubViewport/GameZone/Preview"]
+position = Vector2(488, 180)
+texture = ExtResource("8_065y2")
+
+[node name="RedPointRight" type="Sprite2D" parent="Center/MainVBox/GameArea/ViewContainer/SubViewport/GameZone/Preview"]
+position = Vector2(488, 60)
+texture = ExtResource("9_dv1v6")
+
+[node name="Lines" type="Node2D" parent="Center/MainVBox/GameArea/ViewContainer/SubViewport/GameZone"]
+unique_name_in_owner = true
+
+[node name="Points" type="Node2D" parent="Center/MainVBox/GameArea/ViewContainer/SubViewport/GameZone"]
+unique_name_in_owner = true
+
+[node name="GameAreaShadow" type="TextureRect" parent="Center/MainVBox/GameArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_43wny")
+
+[node name="ExitButton" type="Button" parent="Center/MainVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 36
+text = "Выйти"
+
+[connection signal="pressed" from="Center/MainVBox/ExitButton" to="." method="_on_exit_button_pressed"]
