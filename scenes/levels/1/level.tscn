@@ -58,6 +58,7 @@ position = Vector2(192, 224)
 
 [node name="RiddleObject" parent="Objects" index="6" instance=ExtResource("8_h6qpu")]
 position = Vector2(960, 528)
+riddle_type = 2
 riddle_id = "open_last_portal"
 
 [node name="Enemies" type="Node2D" parent="." index="3"]

@@ -1,0 +1,171 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqm04ephvj63p"]
+
+[ext_resource type="StyleBox" uid="uid://b01chi52gahxn" path="res://resources/styles/progress_bar/fg_green.tres" id="1_hx6af"]
+[ext_resource type="Script" path="res://objects/riddles/auto/riddle_auto.gd" id="1_hy4yd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ktoc3"]
+bg_color = Color(0.85098, 0.85098, 0.85098, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.101961, 0, 0, 0)
+shadow_size = 10
+shadow_offset = Vector2(1, 1)
+
+[node name="RiddleAuto" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hy4yd")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.282353, 0.454902, 0.580392, 1)
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="MainVBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 25
+
+[node name="GameName" type="Label" parent="Margin/MainVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Отправка послания"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TestData" type="PanelContainer" parent="Margin/MainVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ktoc3")
+
+[node name="Margin" type="MarginContainer" parent="Margin/MainVBox/TestData"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="Margin/MainVBox/TestData/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TestDataInfo" type="Label" parent="Margin/MainVBox/TestData/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Оформление послания"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TestDataProgress" type="ProgressBar" parent="Margin/MainVBox/TestData/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+
+[node name="LoadingData" type="PanelContainer" parent="Margin/MainVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ktoc3")
+
+[node name="Margin" type="MarginContainer" parent="Margin/MainVBox/LoadingData"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="Margin/MainVBox/LoadingData/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LoadingDataInfo" type="Label" parent="Margin/MainVBox/LoadingData/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Проверка на грамматические ошибки"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoadingDataProgress" type="ProgressBar" parent="Margin/MainVBox/LoadingData/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+
+[node name="ServerLoad" type="PanelContainer" parent="Margin/MainVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ktoc3")
+
+[node name="Margin" type="MarginContainer" parent="Margin/MainVBox/ServerLoad"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="Margin/MainVBox/ServerLoad/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ServerLoadInfo" type="Label" parent="Margin/MainVBox/ServerLoad/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Отправка послания"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ServerLoadLevel" type="ProgressBar" parent="Margin/MainVBox/ServerLoad/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_styles/fill = ExtResource("1_hx6af")
+value = 50.0
+
+[node name="ServerLoadProgress" type="ProgressBar" parent="Margin/MainVBox/ServerLoad/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+
+[node name="ExitButton" type="Button" parent="Margin/MainVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 36
+text = "Выйти"
+
+[connection signal="pressed" from="Margin/MainVBox/ExitButton" to="." method="_on_exit_button_pressed"]
