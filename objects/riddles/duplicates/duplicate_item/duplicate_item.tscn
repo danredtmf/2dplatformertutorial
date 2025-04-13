@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtj5h6unaa0xj"]
+
+[ext_resource type="Script" path="res://objects/riddles/duplicates/duplicate_item/duplicate_item.gd" id="1_mhx6x"]
+[ext_resource type="Texture2D" uid="uid://bla0j7m5wr4od" path="res://resources/sprites/delete_duplicates_game/count.png" id="1_n5jut"]
+
+[node name="DuplicateItem" type="Control"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 100.0
+script = ExtResource("1_mhx6x")
+
+[node name="DuplicateRect" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CountRect" type="TextureRect" parent="DuplicateRect"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -30.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("1_n5jut")
+
+[node name="CountInfo" type="Label" parent="DuplicateRect/CountRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1

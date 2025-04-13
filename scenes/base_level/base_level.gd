@@ -4,6 +4,7 @@ extends Node2D
 # Интерфейсы загадок
 const RIDDLE_LINES := preload("res://objects/riddles/lines/riddle_lines.tscn")
 const RIDDLE_AUTO := preload("res://objects/riddles/auto/riddle_auto.tscn")
+const RIDDLE_DUPLICATES := preload("res://objects/riddles/duplicates/riddle_duplicates.tscn")
 
 @onready var game_over_ui: Control = $FGLayer/GameOverUI
 @onready var _riddles = %Riddles
@@ -21,8 +22,10 @@ func open_riddle(riddle: RiddleObject) -> void:
 			print("Открывается загадка \"Соединение Линий\"")
 			riddle_ui = RIDDLE_LINES.instantiate() as RiddleLines
 			riddle_ui.riddle_object = riddle
-		RiddleObject.RiddleType.DUBLICATES:
+		RiddleObject.RiddleType.DUPLICATES:
 			print("Открывается загадка \"Удаление Дубликатов\"")
+			riddle_ui = RIDDLE_DUPLICATES.instantiate() as RiddleDuplicates
+			riddle_ui.riddle_object = riddle
 		RiddleObject.RiddleType.AUTO:
 			print("Открывается загадка \"Отправка послания\"")
 			riddle_ui = RIDDLE_AUTO.instantiate() as RiddleAuto

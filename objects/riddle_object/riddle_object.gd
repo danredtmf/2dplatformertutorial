@@ -2,7 +2,7 @@
 class_name RiddleObject
 extends InteractiveArea
 
-enum RiddleType { LINES, DUBLICATES, AUTO }
+enum RiddleType { LINES, DUPLICATES, AUTO }
 
 @export var riddle_type: RiddleType
 @export var riddle_id: String

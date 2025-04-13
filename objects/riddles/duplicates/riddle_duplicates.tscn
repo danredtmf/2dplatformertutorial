@@ -1,0 +1,163 @@
+[gd_scene load_steps=7 format=3 uid="uid://c6swqacyrvwdx"]
+
+[ext_resource type="Texture2D" uid="uid://crlbhti2hu2u8" path="res://resources/sprites/delete_duplicates_game/game_area.png" id="1_el13n"]
+[ext_resource type="Script" path="res://objects/riddles/duplicates/riddle_duplicates.gd" id="1_lpnfh"]
+[ext_resource type="Texture2D" uid="uid://dgnfjygedly6k" path="res://resources/sprites/delete_duplicates_game/game_area_shadow.png" id="2_rl4p0"]
+[ext_resource type="Texture2D" uid="uid://c1qqmwv5n6333" path="res://resources/sprites/delete_duplicates_game/extra_area.png" id="3_87lac"]
+[ext_resource type="Texture2D" uid="uid://c6kker6w6h8at" path="res://resources/sprites/delete_duplicates_game/extra_area_shadow.png" id="4_c6pqg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g1t27"]
+size = Vector2(800, 20)
+
+[node name="RiddleDuplicates" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lpnfh")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.282353, 0.454902, 0.580392, 1)
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="MainVBox" type="VBoxContainer" parent="Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 25
+
+[node name="GameName" type="Label" parent="Margin/MainVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Удаление дубликатов"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="Margin/MainVBox"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="GameArea" type="TextureRect" parent="Margin/MainVBox/HBox"]
+layout_mode = 2
+texture = ExtResource("1_el13n")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Margin/MainVBox/HBox/GameArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="Margin/MainVBox/HBox/GameArea/SubViewportContainer"]
+unique_name_in_owner = true
+transparent_bg = true
+handle_input_locally = false
+physics_object_picking = true
+size = Vector2i(800, 500)
+render_target_update_mode = 4
+
+[node name="GameZone" type="Node2D" parent="Margin/MainVBox/HBox/GameArea/SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+
+[node name="Objects" type="Node2D" parent="Margin/MainVBox/HBox/GameArea/SubViewportContainer/SubViewport/GameZone"]
+unique_name_in_owner = true
+
+[node name="WallTop" type="StaticBody2D" parent="Margin/MainVBox/HBox/GameArea/SubViewportContainer/SubViewport/GameZone"]
+position = Vector2(400, 0)
+collision_mask = 2
+
+[node name="Collision" type="CollisionShape2D" parent="Margin/MainVBox/HBox/GameArea/SubViewportContainer/SubViewport/GameZone/WallTop"]
+shape = SubResource("RectangleShape2D_g1t27")
+
+[node name="WallBottom" type="StaticBody2D" parent="Margin/MainVBox/HBox/GameArea/SubViewportContainer/SubViewport/GameZone"]
+position = Vector2(400, 500)
+collision_mask = 2
+
+[node name="Collision" type="CollisionShape2D" parent="Margin/MainVBox/HBox/GameArea/SubViewportContainer/SubViewport/GameZone/WallBottom"]
+shape = SubResource("RectangleShape2D_g1t27")
+
+[node name="WallLeft" type="StaticBody2D" parent="Margin/MainVBox/HBox/GameArea/SubViewportContainer/SubViewport/GameZone"]
+position = Vector2(0, 250)
+rotation = 1.5708
+collision_mask = 2
+
+[node name="Collision" type="CollisionShape2D" parent="Margin/MainVBox/HBox/GameArea/SubViewportContainer/SubViewport/GameZone/WallLeft"]
+shape = SubResource("RectangleShape2D_g1t27")
+
+[node name="WallRight" type="StaticBody2D" parent="Margin/MainVBox/HBox/GameArea/SubViewportContainer/SubViewport/GameZone"]
+position = Vector2(800, 250)
+rotation = 1.5708
+collision_mask = 2
+
+[node name="Collision" type="CollisionShape2D" parent="Margin/MainVBox/HBox/GameArea/SubViewportContainer/SubViewport/GameZone/WallRight"]
+shape = SubResource("RectangleShape2D_g1t27")
+
+[node name="GameAreaShadow" type="TextureRect" parent="Margin/MainVBox/HBox/GameArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_rl4p0")
+
+[node name="ExtraArea" type="TextureRect" parent="Margin/MainVBox/HBox"]
+layout_mode = 2
+texture = ExtResource("3_87lac")
+
+[node name="Margin" type="MarginContainer" parent="Margin/MainVBox/HBox/ExtraArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ItemList" type="HFlowContainer" parent="Margin/MainVBox/HBox/ExtraArea/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 55
+
+[node name="ExtraAreaShadow" type="TextureRect" parent="Margin/MainVBox/HBox/ExtraArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_c6pqg")
+
+[node name="ExitButton" type="Button" parent="Margin/MainVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 36
+text = "Выход"
+
+[connection signal="pressed" from="Margin/MainVBox/ExitButton" to="." method="_on_exit_button_pressed"]
