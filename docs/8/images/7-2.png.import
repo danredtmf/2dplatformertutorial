@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlmk5wdxq6e4i"
-path="res://.godot/imported/triangle-coll-setup.png-26534cd003e6b6877954ec0772541c3d.ctex"
+uid="uid://b1xk52pixjuh2"
+path="res://.godot/imported/7-2.png-e55722d1fc09845855022ba41efb4d8c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/8/images/triangle-coll-setup.png"
-dest_files=["res://.godot/imported/triangle-coll-setup.png-26534cd003e6b6877954ec0772541c3d.ctex"]
+source_file="res://docs/8/images/7-2.png"
+dest_files=["res://.godot/imported/7-2.png-e55722d1fc09845855022ba41efb4d8c.ctex"]
 
 [params]
 

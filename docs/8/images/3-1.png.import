@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dv3efywffo4ss"
-path="res://.godot/imported/flower-coll-setup.png-b5264b7df06ea8814c25a809b5b4878e.ctex"
+uid="uid://bg351sx2ugilv"
+path="res://.godot/imported/3-1.png-bba7d8493eecc54628dce4833a02c201.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/8/images/flower-coll-setup.png"
-dest_files=["res://.godot/imported/flower-coll-setup.png-b5264b7df06ea8814c25a809b5b4878e.ctex"]
+source_file="res://docs/8/images/3-1.png"
+dest_files=["res://.godot/imported/3-1.png-bba7d8493eecc54628dce4833a02c201.ctex"]
 
 [params]
 
