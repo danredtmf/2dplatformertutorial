@@ -190,8 +190,8 @@ func _on_back_pressed() -> void:
   - `About` (тип `Button`; сделать имя уникальным (`%`); `Text`: `Об Игре`, вкладка `Theme Overrides` ➡️ вкладка `Font Sizes` ➡️ `Font Size`: `32`)
   - `Quit` (тип `Button`; сделать имя уникальным (`%`); `Text`: `Выход`, вкладка `Theme Overrides` ➡️ вкладка `Font Sizes` ➡️ `Font Size`: `32`)
 
-<div style="text-align: center;"><img src="./images/6-1.png" alt="Рисунок 6-1 – Экран `Паузы`"></div>
-<p align="center">Рисунок 6-1 – Экран `Паузы`</p>
+<div style="text-align: center;"><img src="./images/5-1.png" alt="Рисунок 5-1 – Экран `Главное Меню`"></div>
+<p align="center">Рисунок 5-1 – Экран `Главное Меню`</p>
 
 Создадим скрипт для `MainMenu`:
 
