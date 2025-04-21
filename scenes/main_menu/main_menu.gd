@@ -4,7 +4,6 @@ enum States { Main, Levels, About, Quit }
 var current_state: States = States.Main
 
 @onready var main_state: VBoxContainer = %MainState
-# Их заменим позже
 @onready var levels_state: LevelsState = %LevelsState
 @onready var about_state: AboutState = %AboutState
 

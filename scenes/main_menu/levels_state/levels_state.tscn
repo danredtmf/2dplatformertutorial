@@ -1,9 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxbydytg51h0h"]
+[gd_scene load_steps=2 format=3 uid="uid://cxbydytg51h0h"]
 
 [ext_resource type="Script" path="res://scenes/main_menu/levels_state/levels_state.gd" id="1_i4se4"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_p3o2p"]
-font_size = 64
 
 [node name="LevelsState" type="Control"]
 layout_mode = 3
@@ -31,8 +28,8 @@ layout_mode = 2
 
 [node name="NameState" type="Label" parent="Margin/VBox"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 64
 text = "Уровни"
-label_settings = SubResource("LabelSettings_p3o2p")
 horizontal_alignment = 1
 
 [node name="Levels" type="HBoxContainer" parent="Margin/VBox"]

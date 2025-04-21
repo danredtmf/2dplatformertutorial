@@ -1,11 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dt1kyid57misk"]
+[gd_scene load_steps=4 format=3 uid="uid://dt1kyid57misk"]
 
 [ext_resource type="Script" path="res://scenes/main_menu/main_menu.gd" id="1_oun0r"]
 [ext_resource type="PackedScene" uid="uid://cxbydytg51h0h" path="res://scenes/main_menu/levels_state/levels_state.tscn" id="2_rov2t"]
 [ext_resource type="PackedScene" uid="uid://c1yj4me6ta8ob" path="res://scenes/main_menu/about_state/about_state.tscn" id="4_2txwq"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_r326m"]
-font_size = 64
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -46,8 +43,8 @@ layout_mode = 2
 [node name="GameName" type="Label" parent="Margin/MainState"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 64
 text = "Название Игры"
-label_settings = SubResource("LabelSettings_r326m")
 horizontal_alignment = 1
 
 [node name="Space" type="Control" parent="Margin/MainState"]
